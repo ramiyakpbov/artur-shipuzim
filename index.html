@@ -878,13 +878,12 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--red)!imp
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 try{firebase.initializeApp({
-  // ===== ARTUR SHIPUZIM — החלף בערכים מהפרויקט שלך =====
-  apiKey:"PASTE_API_KEY_HERE",
+  apiKey:"AIzaSyAuDli30o6_HMehdJR9ZMl2-PuKcBQ6Zkk",
   authDomain:"artur-shipuzim.firebaseapp.com",
   projectId:"artur-shipuzim",
   storageBucket:"artur-shipuzim.firebasestorage.app",
-  messagingSenderId:"PASTE_SENDER_ID_HERE",
-  appId:"PASTE_APP_ID_HERE"
+  messagingSenderId:"1003791621615",
+  appId:"1:1003791621615:web:d2e8a01da612325e6aea1a"
 });window._db=firebase.firestore();}catch(e){window._db=null;}
 </script>
 </head>
@@ -911,7 +910,7 @@ try{firebase.initializeApp({
 <div id="pdf-stage"></div>
 
 <script>
-const VERSION='1.0';
+const VERSION='1.1';
 /* ===== i18n for PDF (labels only; item text stays as typed) ===== */
 const I18N={
  ru:{sub:'К О М М Е Р Ч Е С К О Е   П Р Е Д Л О Ж Е Н И Е',quote:'Смета',order:'Заказ на работы',no:'№ сметы',date:'Дата',valid:'Действительно до',contractor:'Подрядчик',to:'Заказчик',desc:'Описание работ',qty:'Кол-во',unit:'Ед.',price:'Цена за ед.',total:'Итого',subtotal:'Промежуточный итог',discount:'Скидка',vat:'НДС',grand:'ИТОГО К ОПЛАТЕ',terms:'Условия оплаты',white:'Белый материал',black:'Черный материал',incl:'включено',notincl:'не включено',signc:'Подпись подрядчика',signk:'Подпись заказчика',cta:'Хотите увидеть больше наших работ?',ctas:'Отсканируйте код или зайдите на сайт · Yehuda Shipuzim',foot:'Документ подготовлен Yehuda Shipuzim · Иегуда Яковов · тел. 054-3387568',orderclause:'Настоящий документ является обязывающим заказом на выполнение работ в соответствии с указанными выше условиями.'},
@@ -1358,7 +1357,7 @@ const PRESETS=[
   {name:'אינסטלציה – דירה',emoji:'🚰',pick:{plumb:{pl1:{q:6},pl2:{q:2},pl5:{q:2}}}},
   {name:'הריסה ופינוי',emoji:'🧱',pick:{demo:{dm1:{q:12},dm2:{q:40},dm4:{q:1}}}},
 ];
-const WA='972545718316'; // עותק קבלן — 054-571-8316
+const WA='972543387568'; // עותק קבלן — 054-338-7568
 /* ===== Missing-item suggestion rules: when an item is selected, suggest these related ids ===== */
 const SUGGEST_RULES={
  fn5:['dm2','fn12','fn8'], fn6:['dm2','fn12','fn8'], fn18:['dm2','fn12'], fn10:['fn12','dm2'],
@@ -1384,7 +1383,7 @@ const Store=(()=>{let mem={};const ok=(()=>{try{localStorage.setItem('__t','1');
 const SYNC_KEYS=['catalog','vatOn','vatPct','clients','quotes','customItems','terms','qseq','whiteCustom','blackCustom','remindDays','lang','theme','targetQuotes','subItems','includeGallery','userTemplates','sentLinks','reviewLinks','googleReview','myStyle','annexWarranty','annexDays'];
 const Sync=(()=>{
  let unsub=null,pushTimer=null,applying=false,lastPushed='';
- const DOC=()=>window._db?window._db.collection('appdata').doc('yehuda'):null;
+ const DOC=()=>window._db?window._db.collection('appdata').doc('artur'):null;
  const localSnapshot=()=>{const o={};SYNC_KEYS.forEach(k=>{const v=Store.get(k,null);if(v!==null)o[k]=v;});
    // גרסה רזה ל-quotes: מסירים snapshot מלא + חתימות base64 (כבדים; חורגים ממגבלת 1MB של Firestore)
    // הגרסה המלאה נשמרת מקומית; לענן דוחפים רק מטא-דאטה ל-50 ההצעות האחרונות
@@ -2082,6 +2081,7 @@ const App={
  },
  resetCurrentQuote(){
    this.allCats().forEach(c=>{(c.items||[]).forEach(i=>{i.selected=false;i.qty=0;});});
+   this.save();
    this.state.custom=[];Store.set('customItems',[]);
    this.state.subItems={};Store.set('subItems',{});
    this.state.client={name:'',project:'',phone:'',address:'',source:'',notes:'',dueDate:''};
@@ -3347,7 +3347,7 @@ const App={
    drawImg(cB,y+imgH+gap,'\u05d0\u05d7\u05e8\u05d9','#2ba8e0','rgba(43,168,224,.5)');
    const fy=y+imgH*2+gap+78;
    x.save();x.shadowColor='rgba(43,168,224,.5)';x.shadowBlur=22;
-   x.fillStyle='#2ba8e0';x.font='800 78px Arial';x.fillText('054-571-8316',W/2,fy+40);x.restore();
+   x.fillStyle='#2ba8e0';x.font='800 78px Arial';x.fillText('054-338-7568',W/2,fy+40);x.restore();
    x.fillStyle='#f3f3f5';x.font='700 33px Arial';x.fillText('\u05d0\u05e8\u05ea\u05d5\u05e8 \u05e9\u05d9\u05e4\u05d5\u05e6\u05d9\u05dd \u00b7 \u05d0\u05e8\u05ea\u05d5\u05e8 \u05d9\u05e2\u05e7\u05d5\u05d1\u05d5\u05d1',W/2,fy+96);
    x.fillStyle='#8a8a96';x.font='600 28px Arial';x.fillText('artur-shipuzim.netlify.app',W/2,fy+142);
    const url=cv.toDataURL('image/jpeg',.93);
@@ -3417,7 +3417,7 @@ const App={
   this.toast('לינק משוב נשלח ✓');this.render();
  },
 
- backup(){const data={_v:VERSION};Store.keys().forEach(k=>data[k]=Store.get(k,null));const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='yehuda-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();this.toast('גיבוי נוצר ✓');},
+ backup(){const data={_v:VERSION};Store.keys().forEach(k=>data[k]=Store.get(k,null));const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='artur-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();this.toast('גיבוי נוצר ✓');},
  restore(e){const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const d=JSON.parse(rd.result);Object.keys(d).forEach(k=>{if(k!=='_v'&&d[k]!==null)Store.set(k,d[k]);});this.state.catalog=Store.get('catalog',this.state.catalog);this.state.custom=Store.get('customItems',[]);this.toast('שוחזר בהצלחה ✓');this.state.modal=null;this.render();}catch(x){this.toast('קובץ לא תקין');}};rd.readAsText(f);},
 
  buildPDFHtml(){const s=this.state,c=s.client,groups=this.chosen();const L=I18N[s.lang]||I18N.he;const dir=s.lang==='en'?'ltr':'rtl';const isC=s.docType==='contract';let rows='';
@@ -3468,7 +3468,7 @@ const App={
 
 
  shortId(){const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<5;i++)s+=a[Math.floor(Math.random()*a.length)];return s;},
- async saveToCloud(data){if(!window._db)return null;try{const id=this.shortId();await window._db.collection('proposals').doc(id).set({data:data,createdAt:Date.now(),viewedAt:null,owner:'yehuda'});return id;}catch(e){return null;}},
+ async saveToCloud(data){if(!window._db)return null;try{const id=this.shortId();await window._db.collection('proposals').doc(id).set({data:data,createdAt:Date.now(),viewedAt:null,owner:'artur'});return id;}catch(e){return null;}},
  async makeReviewLink(clientId){const cl=Store.get('clients',[]).find(c=>c.id===clientId);if(!cl){this.toast('לקוח לא נמצא');return;}
   this.toast('יוצר לינק משוב…');
   const base=location.origin+location.pathname;let link=null;
@@ -3558,7 +3558,7 @@ const App={
       <div id="rv-ok" class="rv-ok"></div>
       ${gmb?`<a class="rv-gmb" id="rv-gmb" href="${gmb}" target="_blank">⭐ דרגו אותנו גם בגוגל</a>`:''}
     </div>
-    <div class="rv-foot">המשוב שלך עוזר לנו להשתפר · ארתור שיפוצים · 054-571-8316</div>
+    <div class="rv-foot">המשוב שלך עוזר לנו להשתפר · ארתור שיפוצים · 054-338-7568</div>
   </div></div>`;
  },
 proposalView(data){data=data||{};const nf=n=>Math.round(n).toLocaleString('he-IL')+' ₪';const owner=WA;
@@ -3608,7 +3608,7 @@ proposalView(data){data=data||{};const nf=n=>Math.round(n).toLocaleString('he-IL
       <button class="pv2-send" id="pv2-send" type="button">שלח הערה לארתור</button>
       <div id="pv2-note-ok" class="pv2-ok"></div>
     </div>
-    <a class="prop-call" href="tel:0543387568">📞 יש לי שאלה — התקשר 054-571-8316</a>
+    <a class="prop-call" href="tel:0543387568">📞 יש לי שאלה — התקשר 054-338-7568</a>
     <div class="pv2-cta">רוצים לראות עוד מהעבודות שלנו? <b>artur-shipuzim.netlify.app</b></div>
     <div class="prop-foot">בלחיצה על "מאשר" תיפתח הודעת אישור בוואטסאפ לארתור שיפוצים · מסמך זה הופק ע"י ארתור שיפוצים</div>
   </div></div>`;
