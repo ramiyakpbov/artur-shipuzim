@@ -1,11 +1,11 @@
-# ארתור שיפוצים — PWA הצעות מחיר · v2.1
+# ארתור שיפוצים — PWA הצעות מחיר · v2.2
 
 נבנה מ-יהודה שיפוצים v15.7. כל היכולות זהות, הזהות הוחלפה במלואה.
 
 ## פרטי העסק
 - **ארתור ישראילוב** · 054-3387568
 - ח.פ. 321059800 · snap.artur@gmail.com
-- artur-shipuzim.netlify.app
+- (אין אתר)
 
 ## מה הוחלף מיהודה
 | | |
@@ -45,7 +45,7 @@
 5. **חוקי כתיבה** — אסור "קבלן רשום" בשום מקום (נשמר).
 
 ## פריסה
-GitHub Pages: `artur-shipuzim.netlify.app/`
+GitHub Pages: `(אין אתר)/`
 העלה את חמשת הקבצים + שלושת האייקונים לשורש המאגר.
 
 ## תחזוקה
@@ -58,7 +58,7 @@ GitHub Pages: `artur-shipuzim.netlify.app/`
 
 | | יהודה | ארתור |
 |---|---|---|
-| דומיין | yehuda-shipuzim.netlify.app | artur-shipuzim.netlify.app |
+| דומיין | yehuda-shipuzim.netlify.app | (אין אתר) |
 | פרויקט Firebase | yehuda-shipuzim | **artur-shipuzim** |
 | apiKey | …SHw_nh0A | **…KcBQ6Zkk** |
 | מסמך סנכרון | appdata/yehuda | **appdata/artur** |
