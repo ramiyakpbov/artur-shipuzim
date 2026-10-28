@@ -2,7 +2,7 @@
    מטרה: עבודה אופליין + עדכון אוטומטי.
    בכל שדרוג: העלה את מספר הגרסה כאן (CACHE) והאפליקציה תתעדכן לבד אצל כל המשתמשים.
 */
-const CACHE = 'ar-cache-v3.0';
+const CACHE = 'ar-cache-v4.0';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './version.json'];
 
 self.addEventListener('message', e => { if (e.data === 'SKIP_WAITING') self.skipWaiting(); });
@@ -15,7 +15,7 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(keys => Promise.all(keys.filter(k => k.startsWith('ar-cache') && k !== CACHE).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -25,6 +25,8 @@ self.addEventListener('fetch', e => {
   if (req.method !== 'GET') return;
   let url;
   try { url = new URL(req.url); } catch (_) { return; }
+  // סרטוני המדריך — ישר מהרשת, בלי לשמור: אחרת הטלפון שומר עותק של כל סרטון שנצפה
+  if (url.pathname.indexOf('/guide/') >= 0 || /\.(mp4|webm)$/i.test(url.pathname)) return;
 
   const isDoc = req.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('/');
   const isVersion = url.pathname.endsWith('version.json');
@@ -68,4 +70,24 @@ self.addEventListener('fetch', e => {
       return cached || network;
     })
   );
+});
+
+// v25.5 — התראות לטלפון (Web Push). התוכן מוצפן בשרת (netlify/functions/notify.mjs) ומפוענח כאן ע"י הדפדפן.
+self.addEventListener('push', e => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (_) { try { d = { title: e.data.text() }; } catch (__) {} }
+  const title = d.title || 'ארתור שיפוצים';
+  e.waitUntil(self.registration.showNotification(title, {
+    body: d.body || '', tag: d.tag || 'ys', renotify: true,
+    icon: './icon-192.png', badge: './icon-192.png', dir: 'rtl', lang: 'he',
+    data: { url: d.url || './' }
+  }));
+});
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = new URL((e.notification.data && e.notification.data.url) || './', self.registration.scope).href;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+    for (const c of list) { if (c.url.indexOf(self.registration.scope) === 0 && 'focus' in c) return c.focus(); }
+    return self.clients.openWindow ? self.clients.openWindow(url) : null;
+  }));
 });
